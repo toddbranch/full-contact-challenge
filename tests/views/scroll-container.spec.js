@@ -30,7 +30,7 @@ describe('Scroll Container', function () {
             expect(this.view.render()).toBe(this.view);
         });
 
-        it('should display the first \'maxRow\' elements', function () {
+        it('should display the first \'rowsToDisplay\' elements', function () {
             this.view.render();
 
             expect(this.view.$el).not.toHaveText(/item 19/);
@@ -41,7 +41,7 @@ describe('Scroll Container', function () {
     });
 
     describe('#scroll', function () {
-        it('should prepend items if within \'loadThreshold\' of top', function () {
+        it('should prepend if within \'loadThresholdPx\' of top', function () {
             spyOn(this.view, 'getScrollParams').and.returnValue({
                 innerHeight: 200,
                 scrollHeight: 0,
@@ -58,7 +58,7 @@ describe('Scroll Container', function () {
             expect(this.view.$el).not.toHaveText(/item 9/);
         });
 
-        it('should append if within \'loadThreshold\' of top', function () {
+        it('should append if within \'loadThresholdPx\' of top', function () {
             spyOn(this.view, 'getScrollParams').and.returnValue({
                 innerHeight: 200,
                 scrollHeight: 800,
