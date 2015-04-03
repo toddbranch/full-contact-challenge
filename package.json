@@ -1,0 +1,8 @@
+{
+    "devDependencies": {
+        "testem": "*"
+    },
+    "scripts": {
+        "test": "node_modules/testem/testem.js"
+    }
+}

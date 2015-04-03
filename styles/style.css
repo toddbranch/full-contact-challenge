@@ -1,0 +1,16 @@
+.scroll-container {
+    height: 600px;
+    width: 500px;
+    overflow-y: scroll;
+    overflow-x: hidden;
+    padding: 0;
+}
+
+.item {
+    height: 200px;
+    text-align: center;
+}
+
+img {
+    height: 150px;
+}
