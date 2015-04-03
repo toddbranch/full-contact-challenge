@@ -16,4 +16,4 @@ index.html - you'll need an internet connection because I load the libraries fro
 
 ## notes
 
-- The scrolling is smooth, but the pug images load as you scroll.  If I were to take this forward, I would improve that - probably by using moddims to display a low-res image first, then swapping in the high-res version once downloaded.
+Happy to discuss  potential optimizations / improvements as well as the tradeoffs I decided on when writing it.

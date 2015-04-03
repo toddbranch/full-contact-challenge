@@ -58,7 +58,7 @@ describe('Scroll Container', function () {
             expect(this.view.$el).not.toHaveText(/item 9/);
         });
 
-        it('should append items if within \'loadThreshold\' of top', function () {
+        it('should append if within \'loadThreshold\' of top', function () {
             spyOn(this.view, 'getScrollParams').and.returnValue({
                 innerHeight: 200,
                 scrollHeight: 800,
@@ -76,15 +76,37 @@ describe('Scroll Container', function () {
         });
     });
 
-    describe('#getIndicesToDisplay', function () {
-        it('should return \'itemsToDisplay\' indices starting with index', function () {
-            var result = this.view.getIndicesToDisplay(0, 100, 5);
-            expect(result).toEqual([0, 1, 2, 3, 4]);
+    describe('#getViewsToDisplay', function () {
+        it('should return \'length\' views starting with index', function () {
+            var result = this.view.getViewsToDisplay(
+                0,
+                5,
+                this.view.collection,
+                this.view.CHILD_VIEW
+            );
+
+            expect(result.length).toBe(5);
+            expect(result[0].render().$el).toHaveText(/item 0/);
+            expect(result[1].render().$el).toHaveText(/item 1/);
+            expect(result[2].render().$el).toHaveText(/item 2/);
+            expect(result[3].render().$el).toHaveText(/item 3/);
+            expect(result[4].render().$el).toHaveText(/item 4/);
         });
 
-        it('should add indices from 0 when past end', function () {
-            var result = this.view.getIndicesToDisplay(98, 100, 5);
-            expect(result).toEqual([98, 99, 0, 1, 2]);
+        it('should add views from 0 when past end', function () {
+            var result = this.view.getViewsToDisplay(
+                18,
+                5,
+                this.view.collection,
+                this.view.CHILD_VIEW
+            );
+
+            expect(result.length).toBe(5);
+            expect(result[0].render().$el).toHaveText(/item 18/);
+            expect(result[1].render().$el).toHaveText(/item 19/);
+            expect(result[2].render().$el).toHaveText(/item 0/);
+            expect(result[3].render().$el).toHaveText(/item 1/);
+            expect(result[4].render().$el).toHaveText(/item 2/);
         });
     });
 

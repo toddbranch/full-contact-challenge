@@ -85,22 +85,33 @@ var ScrollContainer = Backbone.View.extend({
         }
     },
 
-    getIndicesToDisplay: function (index, listLength, itemsToDisplay) {
+    getViewsToDisplay: function (index, length, collection, childView) {
         var result = [];
+        var listLength = collection.length;
 
-        _(itemsToDisplay).times(function (n) {
-            var desiredIndex = index + n;
+        _(length).times(
+            function (n) {
+                var desiredIndex = index + n;
 
-            if (desiredIndex < 0) {
-                desiredIndex = listLength + desiredIndex;
-            } else if (desiredIndex >= listLength) {
-                desiredIndex = desiredIndex - listLength;
+                if (desiredIndex < 0) {
+                    desiredIndex = listLength + desiredIndex;
+                } else if (desiredIndex >= listLength) {
+                    desiredIndex = desiredIndex - listLength;
+                }
+
+                result.push(desiredIndex);
+            },
+            this
+        );
+
+        return _.map(
+            result,
+            function (index) {
+                return new childView({
+                    model: collection.at(index)
+                });
             }
-
-            result.push(desiredIndex);
-        }, this);
-
-        return result;
+        );
     },
 
     render: function () {
@@ -111,18 +122,11 @@ var ScrollContainer = Backbone.View.extend({
             }
         );
 
-        this.childViews = _.map(
-            this.getIndicesToDisplay(
-                this.index,
-                this.collection.length,
-                this.ROWS_TO_DISPLAY
-            ),
-            function (index) {
-                return new this.CHILD_VIEW({
-                    model: this.collection.at(index)
-                });
-            },
-            this
+        this.childViews = this.getViewsToDisplay(
+            this.index,
+            this.ROWS_TO_DISPLAY,
+            this.collection,
+            this.CHILD_VIEW
         );
 
         _.each(
