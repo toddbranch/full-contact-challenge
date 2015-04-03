@@ -16,7 +16,7 @@ var ScrollContainer = Backbone.View.extend({
         options = options || {};
 
         this.CHILD_VIEW = options.childView || Backbone.View;
-        this.ROWS_TO_DISPLAY = options.rowsToDisplay || 200;
+        this.ROWS_TO_DISPLAY = options.rowsToDisplay || 20;
         this.LOAD_THRESHOLD_PX = options.loadThresholdPx || 100;
     },
 
